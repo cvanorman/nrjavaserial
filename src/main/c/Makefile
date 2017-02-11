@@ -19,17 +19,17 @@ LINKOSX=cc $(OSXARCH) -dynamiclib -framework JavaVM -framework IOKit -framework 
 LINOBJ=build/fixup.o build/fuserImp.o build/SerialImp.o
 LININCLUDE=-I/usr/lib/jvm/java-8-openjdk-amd64/include/ -I/usr/lib/jvm/java-7-openjdk-amd64/include/ -I/usr/lib/jvm/java-7-openjdk-i386/include/ -I"./include" -I"./include/target" -I/usr/lib/jvm/java-6-openjdk-amd64/include/ -I/usr/lib/jvm/java-6-openjdk-armhf/include/ -I/usr/lib/jvm/java-6-openjdk-arm/include/ -I/usr/lib/jvm/java-6-openjdk-i386/include/ -I/etc/alternatives/java_sdk/include -I/etc/alternatives/java_sdk/include/linux
 
-CCLIN32=gcc $(LININCLUDE) -DDISABLE_LOCKFILES -O3 -Wall -c -fmessage-length=0 -fPIC -m32 -MMD
+CCLIN32=gcc $(LININCLUDE) -DDISABLE_LOCKFILES -O3 -Wall -c -fmessage-length=0 -fPIC -m32 -MMD -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0
 LINKLIN32=g++ -m32 -shared
 
 
-CCLIN64=gcc $(LININCLUDE) -DDISABLE_LOCKFILES -O3 -Wall -c -fmessage-length=0 -fPIC -m64 -MMD
+CCLIN64=gcc $(LININCLUDE) -DDISABLE_LOCKFILES -O3 -Wall -c -fmessage-length=0 -fPIC -m64 -MMD -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0
 LINKLIN64=g++ -m64 -shared
 
-CCLINARM=arm-linux-gnueabi-gcc $(LININCLUDE) -DDISABLE_LOCKFILES -O3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP
+CCLINARM=arm-linux-gnueabi-gcc $(LININCLUDE) -DDISABLE_LOCKFILES -O3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0
 LINKLINARM=arm-linux-gnueabi-g++ -shared -fPIC -nostdlib -Lcross-compile-libs/ARM
 
-CCLINARM_HF=arm-linux-gnueabihf-gcc $(LININCLUDE) -DDISABLE_LOCKFILES -O3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP
+CCLINARM_HF=arm-linux-gnueabihf-gcc $(LININCLUDE) -DDISABLE_LOCKFILES -O3 -Wall -c -fmessage-length=0 -fPIC -MMD -MP -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0
 LINKLINARM_HF=arm-linux-gnueabihf-g++ -shared -fPIC -nostdlib -Lcross-compile-libs/ARM
 
 CCLINANDROID=/home/opt/android-ndk-r5b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/arm-linux-androideabi/bin/gcc $(LININCLUDE) -O3 -Wall -c -fmessage-length=0 -fPIC -MMD -MMD -MP
